@@ -4826,7 +4826,7 @@ class Makera(RelativeLayout):
                 config_path = self._machine_config_cache_path()
                 if not os.path.exists(config_path):
                     raise FileNotFoundError(f"Cached config not found: {config_path}")
-                with open(config_path) as f:
+                with open(config_path, encoding="utf-8", errors="replace") as f:
                     config_string = "[dummy_section]\n" + f.read()
                 # remove notes
                 config_string = re.sub(r"#.*", "", config_string)
@@ -5359,7 +5359,7 @@ class Makera(RelativeLayout):
         if not os.path.exists(config_path):
             return None
 
-        with open(config_path) as fd:
+        with open(config_path, encoding="utf-8", errors="replace") as fd:
             self.machine_config_data = json.loads(fd.read())
         self.machine_config_data_model = app.model
         return self.machine_config_data
